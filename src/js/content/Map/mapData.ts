@@ -1,4 +1,4 @@
-import { EnemyId } from "../Combat/enemies";
+import { EnemyId } from "../Combat/enemyIds";
 
 export interface Tileset {
     id: string;

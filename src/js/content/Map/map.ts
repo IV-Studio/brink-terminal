@@ -8,7 +8,8 @@ import { ItemContainerMapTile } from "../Items/itemContainerMapTile.ts";
 import Clearance from "../clearance.js";
 import Rooms from "../rooms.js";
 import { ItemData, itemDataList, ItemKeys } from "../Items/itemList.ts";
-import { EnemyId, EnemyType, getEnemyTypeById } from "../Combat/enemies.ts";
+import { EnemyType, getEnemyTypeById } from "../Combat/enemies.ts";
+import { EnemyId } from "../Combat/enemyIds";
 import { Item } from "../Items/items.ts";
 import Keywords from "../keywords.js";
 

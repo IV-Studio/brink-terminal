@@ -1,3 +1,5 @@
+import { EnemyId } from "./enemyIds";
+export { EnemyId } from "./enemyIds";
 import Command from "../../command";
 import { playerShip } from "../Ship/ships";
 import { combat } from "./combat";
@@ -307,28 +309,7 @@ export function getEnemyTypeById(id: string): EnemyType | undefined {
     return undefined;
 }
 
-export enum EnemyId {
-    TEST_ENEMY = "test-enemy",
-    TEST_ENEMY2 = "test-enemy-2",
-    JUNKER_SCAVENGER = "JUNKER_SCAVENGER",
-    WARLORD_SCAVENGER = "WARLORD_SCAVENGER",
-    APEX_SCAVENGER = "APEX_SCAVENGER",
-    SCRAP_MARAUDER = "SCRAP_MARAUDER",
-    STEEL_MARAUDER = "STEEL_MARAUDER",
-    GOLD_MARAUDER = "GOLD_MARAUDER",
-    KNOX_VI = "KNOX_VI",
-    VOID_RAIDER = "VOID_RAIDER",
-    SHADOW_RAIDER = "SHADOW_RAIDER",
-    DUSK_RAIDER = "DUSK_RAIDER",
-    LIGHT_LIBERATOR = "LIGHT_LIBERATOR",
-    DAWN_LIBERATOR = "DAWN_LIBERATOR",
-    SUN_LIBERATOR = "SUN_LIBERATOR",
-    ROGUE_BANDIT = "ROGUE_BANDIT",
-    UA_FIGHTER = "UA_FIGHTER",
-    GENERAL_GARDA = "GENERAL_GARDA",
-    GENERLA_PURJA = "GENERLA_PURJA",
-    UA_CAPTAIN = "UA_CAPTAIN",
-  }
+
 
 // ENEMY TYPES
 
