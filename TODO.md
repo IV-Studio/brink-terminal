@@ -31,15 +31,20 @@ username requests are logged using the rotated database credential. See `backend
 
 - [x] Trace references to the older `src/js/ships.js`, `items.js`, `world.js`, and `shipParts.js` implementations.
 - [x] Consolidate ships, inventory, and exploration onto the active TypeScript implementations. Some older modules still run at startup; do not delete them blindly.
-- [ ] Introduce one explicit startup function for state, game objects, animation readiness, and networking.
-- [ ] Remove import-time construction and side effects where they cause circular dependencies.
-- [ ] Replace the restoration workaround that defers the enemy subclass once initialization is reliable.
-- [ ] Preserve chapter/key-card URL behavior and existing command responses.
+- [x] Introduce one explicit startup function for state, game objects, animation readiness, and networking.
+- [x] Remove import-time construction and side effects where they cause circular dependencies.
+- [x] Replace the restoration workaround that defers the enemy subclass once initialization is reliable.
+- [x] Preserve chapter/key-card URL behavior and existing command responses.
 
 Legacy cleanup verified October 15, 2026: removed five obsolete JavaScript modules
 and the unused startup calls. An isolated browser comparison matched startup,
 station access, inventory capacity/add/remove behavior, exploration, combat damage,
 and docking before and after removal. Active content and balancing are unchanged.
+
+Startup follow-up verified October 15, 2026: state and game objects initialize
+explicitly, animation readiness precedes the API check and input, and startup is
+idempotent. Production-browser checks cover delayed assets, key-card URLs, API
+failure, and animation failure. The enemy subclass factory workaround is removed.
 
 ## 4. API requests and rendering
 

@@ -136,7 +136,12 @@ export function turnOffMap() {
 
 //test();
 
-export async function createRiveMap() {
+let initialization: Promise<void>;
+export function initializeRiveMap() {
+    return initialization ??= loadRiveMap();
+}
+
+async function loadRiveMap() {
     rive = await RiveCanvas({
         // Loads Wasm bundle
         locateFile: (_) =>
@@ -155,7 +160,7 @@ export async function createRiveMap() {
         canvas.height = divheight;
     }
 
-    window.onresize = computeSize;
+    window.addEventListener('resize', computeSize);
     computeSize();
 
     const renderer = rive.makeRenderer(canvas);
@@ -380,5 +385,3 @@ function customDistance(x1: number, y1: number, x2: number, y2: number): number 
     // Calculate the total distance based on the individual x and y distances
     return dx + dy;
 }
-
-createRiveMap();

@@ -2,7 +2,8 @@ import Command from "../../command";
 import { Enemy } from "../Combat/enemies";
 import { Item } from "../Items/items";
 import { ItemData } from "../Items/itemList";
-import { playerShip, Ship } from "../Ship/ships";
+import { playerShip } from "../Ship/ships";
+import { Ship } from "../Ship/shipBase";
 import { AttackAction } from "../Combat/combatActions";
 import { playerCredits } from "../Player/credits";
 

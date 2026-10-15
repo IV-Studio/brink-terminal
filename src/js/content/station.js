@@ -9,8 +9,8 @@ import Username from "./username.js";
 import Database from "./database.js";
 import { world } from "./Map/world";
 import { supplyDepot } from "./Stores/supplyDepot";
-import { urlPath } from "../main.js";
-import { versionNumber } from "../main.js";
+import { urlPath } from "../context.js";
+import { versionNumber } from "../config.js";
 import { armory } from "./Stores/armory";
 import { playerCredits } from "./Player/credits";
 

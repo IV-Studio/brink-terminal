@@ -3,7 +3,7 @@ export { EnemyId } from "./enemyIds";
 import Command from "../../command";
 import { playerShip } from "../Ship/ships";
 import { combat } from "./combat";
-import { Ship } from "../Ship/ships";
+import { Ship } from "../Ship/shipBase";
 import { AttackAction } from "./combatActions";
 import { riveCombatEnemyAttack, riveEnemyDamaged } from "../../riveMap";
 import { ItemKeys } from "../Items/itemList";
@@ -16,8 +16,7 @@ type TurnAction = {
 };
 
 
-function createEnemyClass() {
-return class Enemy extends Ship{
+export class Enemy extends Ship {
     id: string;
     name: string;
     startingHealth: number;
@@ -83,15 +82,6 @@ return class Enemy extends Ship{
             this.enemyOnCombatStart(this);
         }
     }
-}
-
-}
-
-// Build the subclass after the circular game modules have finished loading.
-export type Enemy = InstanceType<ReturnType<typeof createEnemyClass>>;
-export let Enemy: ReturnType<typeof createEnemyClass>;
-export function initializeEnemies() {
-    Enemy = createEnemyClass();
 }
 
 // ENEMY ACTIONS

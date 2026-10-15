@@ -68,4 +68,7 @@ class Credits {
   }
   
   // Example usage:
-  export const playerCredits = new Credits(2);
+  export let playerCredits: Credits;
+export function initializeCredits() {
+    return playerCredits ??= new Credits(2);
+}

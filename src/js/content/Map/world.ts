@@ -215,4 +215,7 @@ export class World {
 
 }
 
-export const world = new World();
+export let world: World;
+export function initializeWorld() {
+    return world ??= new World();
+}

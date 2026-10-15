@@ -11,6 +11,10 @@ const Command = {
     init: function () {
         const commandText = Command.getCommandDiv();
         commandText.focus();
+        if (!inputBound) {
+            window.addEventListener('keydown', handleKeyDown);
+            inputBound = true;
+        }
     },
 
     getCommandDiv: function () {
@@ -180,7 +184,8 @@ function startTypewriterEffect() {
 }
 
 
-window.onkeydown = function (e) {
+let inputBound = false;
+function handleKeyDown(e) {
     Command.keyPress(e.key);
 }
 

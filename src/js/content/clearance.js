@@ -2,7 +2,7 @@ import Actions from '../actions.js';
 import Station from './station.js';
 import getSMInstance from '../statemanager.js';
 import Command from '../command.js';
-import {convertDateTime} from '../main.js';
+import {convertDateTime} from '../formatting.js';
 const SM = getSMInstance();
 
 const Clearance = {

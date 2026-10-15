@@ -10,7 +10,7 @@ import Username from "./content/username.js";
 import Database from "./content/database.js";
 import Keywords from "./content/keywords.js";
 import Conversation from "./content/conversation.js";
-import {server} from "./main.js";
+import {server} from "./config.js";
 import ConnectionError from "./content/connectionError.js";
 import { world } from "./content/Map/world";
 import { supplyDepot } from "./content/Stores/supplyDepot";

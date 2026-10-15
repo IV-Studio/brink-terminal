@@ -10,7 +10,7 @@ https://pacific-wildwood-12937-dbfccb51eaa2.herokuapp.com
 Use Node 22 (`nvm use`), then `npm ci` and `npm run dev`.
 Build the terminal with `npm run build`. The log viewer lives behind backend authentication.
 Dependencies are locked; `.npmrc` uses the official registry because the local mirror lacks Rive.
-Rive runtimes remain pinned to 2.19.0 to match the map's WASM.
+The map runtime remains pinned to 2.19.0 to match its WASM; the existing keyboard/logo runtime stays unchanged.
 
 ## Deployment
 
@@ -49,8 +49,9 @@ The recovered backend is now in `backend/`; see [backend deployment and administ
 The former public database-viewer address redirects to the authenticated backend viewer.
 Backend deployments are separate from the automatic frontend release.
 
-Startup repairs defer the enemy subclass until imports finish and evaluate the ship
-parts label when read. This avoids circular-import initialization failures in Parcel 2.
+Startup is coordinated by `src/js/startup.js`. Modules define game classes and content;
+the coordinator constructs game objects explicitly and waits for animation inputs
+before checking the API and enabling input. Repeated startup calls share one promise.
 
 ## Active game systems
 
@@ -63,9 +64,14 @@ parts label when read. This avoids circular-import initialization failures in Pa
 The obsolete root JavaScript ship, inventory, parts, world, and map-data modules
 were removed after tracing their consumers and comparing active gameplay behavior.
 Their earlier versions remain in Git history. Keep new work in the active modules.
-Explicit startup sequencing and circular-import cleanup remain separate TODO items.
+Shared ship behavior lives in `Ship/shipBase.ts`, independent of game construction.
+Rendering dependencies are supplied during startup, so enemies extend the base class directly.
 
 CI also boots the actual production bundle in headless Chromium before deployment.
 Locally, run `npx playwright install chromium`, `npm run build`, and `npm run test:browser`.
 Map enemy identifiers live in `Combat/enemyIds.ts` to avoid loading combat runtime
 through static map definitions.
+
+Startup checks also cover delayed map loading, a key-card URL, an unavailable API,
+and an animation load failure. The gameplay comparison still matches the pre-cleanup
+baseline for inventory, exploration, combat damage, and docking.

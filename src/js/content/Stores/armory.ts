@@ -136,4 +136,7 @@ export class Armory {
 
 }
 
-export const armory = new Armory();
+export let armory: Armory;
+export function initializeArmory() {
+    return armory ??= new Armory();
+}

@@ -415,4 +415,7 @@ export class Combat {
 
 }
 
-export const combat = new Combat();
+export let combat: Combat;
+export function initializeCombat() {
+    return combat ??= new Combat();
+}

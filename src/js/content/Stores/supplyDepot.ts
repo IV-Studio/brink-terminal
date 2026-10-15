@@ -132,4 +132,7 @@ export class SupplyDepot {
     }
 }
 
-export const supplyDepot = new SupplyDepot();
+export let supplyDepot: SupplyDepot;
+export function initializeSupplyDepot() {
+    return supplyDepot ??= new SupplyDepot();
+}
