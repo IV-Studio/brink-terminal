@@ -75,3 +75,18 @@ through static map definitions.
 Startup checks also cover delayed map loading, a key-card URL, an unavailable API,
 and an animation load failure. The gameplay comparison still matches the pre-cleanup
 baseline for inventory, exploration, combat damage, and docking.
+
+## API and text rendering
+
+`src/js/api.js` owns game requests, including HTTP status checks, a 10-second
+request/body timeout, and validation of command-response envelopes. It does not
+retry state-changing commands. Failures appear in the terminal and release input;
+unconfirmed combat logging does not stop local gameplay.
+
+Frontend JSDoc and backend annotations reference the shared contract in
+`backend/shared/api.d.ts`. These describe the existing protocol; no new transport
+or player-state persistence is introduced.
+
+Player input is kept in a plain-text buffer, independent of terminal HTML.
+`backend/shared/html.cjs` escapes inserted player text on both sides, while authored
+story markup remains supported. The typewriters consume complete tags and entities.

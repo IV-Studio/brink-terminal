@@ -10,7 +10,8 @@ import Username from "./content/username.js";
 import Database from "./content/database.js";
 import Keywords from "./content/keywords.js";
 import Conversation from "./content/conversation.js";
-import {server} from "./config.js";
+import { api, apiErrorMessage } from './api.js';
+import { formatStoryHtml } from './html.js';
 import ConnectionError from "./content/connectionError.js";
 import { world } from "./content/Map/world";
 import { supplyDepot } from "./content/Stores/supplyDepot";
@@ -266,94 +267,69 @@ const Actions = {
     },
 
     applyFormating: function (inputString) {
-        // Replace opening <k> with <span class='key'>
-        const replacedOpen = inputString.replace(/<h>/g, "<span class='key'>");
-
-        // Replace closing </k> with </span>
-        const replacedClose = replacedOpen.replace(/<\/h>/g, "</span>");
-
-        const replaceUsername = replacedClose.replace(/<username>/g, SM.getUsername());
-
-        return replaceUsername;
+        return formatStoryHtml(inputString, SM.getUsername());
     }
 }
 
 
-function sendCommandToServer(command) {
-
+async function sendCommandToServer(command) {
     Command.loadingStarted();
+    try {
+        const response = await api.respond(createServerCommand(command));
+        if (response.username != null) {
+            Username.setUsername(response.username);
+        }
 
-    fetch(server + '/api/respond', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(createServerCommand(command)),
-    })
-        .then(response => response.text())
-        .then(data => {
+        if (response.clearanceLevel != null) {
+            Clearance.handleServerResponse(response.clearanceLevel);
+        }
 
-            Command.loadingComplete();
+        if (response.keywords != null) {
+            Keywords.handleServerResponse(response.keywords);
+        }
 
-            const response = JSON.parse(data);
+        if (response.terminalMessages != null) {
+            response.terminalMessages.forEach(element => {
+                Command.addCommandResponse(element);
+            });
+        }
 
-            if (response.username != null) {
-                Username.setUsername(response.username);
+        if (response.messages != null) {
+            Messages.handleServerResponse(response.messages);
+        }
+
+        if (response.newContext != null) {
+            if (response.newContext == 'station') {
+                Station.enterStation('reiner-station');
+            }
+        }
+
+        if (response.changeRoom != null) {
+            Rooms.changeRoomState(response.changeRoom);
+        }
+
+        Rooms.handleServerResponse(response);
+
+        if (response.conversationResponse != null) {
+            if (response.eventMoment == true) {
+                Conversation.Actions.turnOffCharacterView();
+                Display.displayMessage(response.conversationResponse);
+            } else {
+                Conversation.Actions.turnOnCharacterView();
+                Display.displayMessage('"' + response.conversationResponse + '"');
             }
 
-            if (response.clearanceLevel != null) {
-                Clearance.handleServerResponse(response.clearanceLevel);
-            }
+        }
+        Database.handleServerResponse(response);
 
-            if (response.keywords != null) {
-                Keywords.handleServerResponse(response.keywords);
-            }
-
-            if (response.terminalMessages != null) {
-                response.terminalMessages.forEach(element => {
-                    Command.addCommandResponse(element);
-                });
-            }
-
-            if (response.messages != null) {
-                Messages.handleServerResponse(response.messages);
-            }
-
-            if (response.newContext != null) {
-                if (response.newContext == 'station') {
-                    Station.enterStation('reiner-station');
-                }
-            }
-
-            if (response.changeRoom != null) {
-                Rooms.changeRoomState(response.changeRoom);
-            }
-
-            Rooms.handleServerResponse(response);
-
-            if (response.conversationResponse != null) {
-                if (response.eventMoment == true) {
-                    Conversation.Actions.turnOffCharacterView();
-                    Display.displayMessage(response.conversationResponse);
-                } else {
-                    Conversation.Actions.turnOnCharacterView();
-                    Display.displayMessage('"' + response.conversationResponse + '"');
-                }
-                
-            }
-            Database.handleServerResponse(response);
-            
-            Actions.showCommandResponse();
-            Actions.refreshCurrentActions();
-
-            
-        })
-        .catch(err => {
-            Command.loadingComplete();
-            Actions.showCommandResponse();
-            Actions.refreshCurrentActions();
-            console.error('Fetch error:', err);
-        });
+    } catch (error) {
+        Command.addCommandResponse(apiErrorMessage(error));
+        console.error('Command request failed', error.kind || error.name);
+    } finally {
+        Command.loadingComplete();
+        Actions.showCommandResponse();
+        Actions.refreshCurrentActions();
+    }
 }
 
 function createServerCommand(command) {
@@ -385,50 +361,14 @@ function createServerCommand(command) {
     return serverCommand;
 }
 
-export function sendCombatCommandToServer(enemyKilled) {
-    fetch(server + '/api/combat', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(createCombatServerCommand(enemyKilled)),
-    })
-        .then(response => response.text())
-        .then(data => {
-            
-        })
-        .catch(err => {
-            console.error('Fetch error:', err);
-        });
-}
-
-function createCombatServerCommand(enemyKilled) {
-
-    const username = Username.getUsername();
-    const context = SM.getCurrentState();
-    const character = SM.getConversation();
-    const clearanceLevel = Clearance.getClearanceLevel();
-    const keywords = Keywords.getKeywords();
-    const room = Rooms.getCurrentRoomKey();
-    const station = Station.getStationId();
-
-    const localCoordinates = [world.map.currentLocation.col, world.map.currentLocation.row];
-    const tileSetCoordinates = [world.map.currentTileSet.col, world.map.currentTileSet.row];
-    
-    const serverCommand = {
-        command: enemyKilled,
-        username: username,
-        context: context,
-        room: room,
-        station: station,
-        character: character,
-        clearanceLevel: clearanceLevel,
-        keywords: keywords,
-        localCoordinates: localCoordinates,
-        tileSetCoordinates: tileSetCoordinates
+export async function sendCombatCommandToServer(enemyKilled) {
+    try {
+        await api.combat(createServerCommand(enemyKilled));
+    } catch (error) {
+        Command.addCommandResponse('Combat logging could not be confirmed. Your game can continue. ' + apiErrorMessage(error));
+        Actions.showCommandResponse();
+        console.error('Combat request failed', error.kind || error.name);
     }
-
-    return serverCommand;
 }
 
 function getCurrentActions() {

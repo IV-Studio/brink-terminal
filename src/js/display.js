@@ -1,3 +1,4 @@
+import { nextHtmlIndex } from './html.js';
 import Actions from "./actions.js";
 
 const Display = {
@@ -35,16 +36,8 @@ const typeWriter = (id, sentence, speed = 100) => {
 
     // Store the interval in the global variable for later access
     typewriterTimer = setInterval(() => {
-        const char = sentence[index];
-
-        if (char === '<') {
-            // Skip HTML tags (or you can handle them differently based on your needs)
-            index = sentence.indexOf('>', index) + 1;
-        }
-
-        element.innerHTML = sentence.slice(0, index + 1);
-
-        index++;
+        index = nextHtmlIndex(sentence, index);
+        element.innerHTML = sentence.slice(0, index);
 
         if (index >= sentence.length) {
             clearInterval(typewriterTimer);

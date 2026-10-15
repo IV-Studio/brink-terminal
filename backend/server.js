@@ -14,6 +14,7 @@ const World = require('./content/world');
 const path = require('path');
 
 const { requireAdmin } = require('./admin-auth');
+const { escapeHtml } = require('./shared/html.cjs');
 
 function createApp(logging = Logging) {
   const app = express();
@@ -47,6 +48,7 @@ function createApp(logging = Logging) {
       return res.status(400).send("No command provided");
     }
 
+    /** @type {Partial<import('./shared/api').GameResponse>} */
     let response = {};
 
     response.terminalMessages = [];
@@ -93,6 +95,7 @@ function createApp(logging = Logging) {
       return res.status(400).send("No command provided");
     }
 
+    /** @type {Partial<import('./shared/api').GameResponse>} */
     let response = {};
 
     response.terminalMessages = [];
@@ -120,7 +123,7 @@ function createApp(logging = Logging) {
       }
       response.newContext = 'station';
       response.username = command;
-      response.terminalMessages.push('...<br>...<br>...<br>' + 'Username confirmed: ' + command);
+      response.terminalMessages.push('...<br>...<br>...<br>' + 'Username confirmed: ' + escapeHtml(command));
     }
 
     if (context == 'clearance') {

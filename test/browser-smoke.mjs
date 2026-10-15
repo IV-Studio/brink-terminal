@@ -1,3 +1,4 @@
+import { escapeHtml } from '../backend/shared/html.cjs';
 import { chromium } from 'playwright';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
@@ -24,7 +25,7 @@ await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 let browser;
 try {
   browser = await chromium.launch({ headless: true, executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined });
-  async function openScenario({ path = '/', status = 200, failMap = false, delayMap = false } = {}) {
+  async function openScenario({ path = '/', status = 200, failMap = false, delayMap = false, respond } = {}) {
     const page = await browser.newPage();
     const errors = [];
     let helloRequests = 0;
@@ -32,6 +33,7 @@ try {
     const gate = new Promise(resolve => { releaseMap = resolve; });
     page.on('pageerror', error => errors.push(error.message));
     await page.route('**/api/**', route => {
+      if (route.request().url().endsWith('/respond') && respond) return respond(route);
       helloRequests++;
       return route.fulfill({ status, contentType: 'application/json', body: '"ok"' });
     });
@@ -83,6 +85,53 @@ try {
     assert.deepEqual(missingAnimation.errors, []);
     console.log('Animation failure startup: passed');
   } finally { await missingAnimation.page.close(); }
+
+  let stage = 'http';
+  let receivedCommand;
+  const requests = await openScenario({ respond: route => {
+    if (stage === 'http') return route.fulfill({ status: 503, body: 'private server details' });
+    if (stage === 'invalid') return route.fulfill({ status: 200, body: '{invalid json' });
+    if (stage === 'timeout') return;
+    receivedCommand = route.request().postDataJSON().command;
+    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({
+      username: receivedCommand, clearanceLevel: 0, keywords: [],
+      terminalMessages: ['Username confirmed: ' + escapeHtml(receivedCommand), '<h>Authored formatting</h>'],
+      newContext: 'station', rooms: {}, characters: {}, files: {}, characterFiles: {}, messages: {},
+    }) });
+  } });
+  try {
+    const page = requests.page;
+    const prompt = page.locator('[data-terminal-input]');
+    async function submit(text) {
+      await prompt.waitFor({ timeout: 30000 });
+      await page.keyboard.type(text);
+      await page.keyboard.press('Enter');
+    }
+    for (const [failure, message] of [
+      ['http', 'The server could not complete that command.'],
+      ['invalid', 'The server returned an unreadable response.'],
+      ['timeout', 'Connection timed out.'],
+    ]) {
+      stage = failure;
+      await submit('test-player');
+      await page.getByText(message, { exact: false }).first().waitFor({ timeout: 15000 });
+      await prompt.waitFor();
+      assert.equal(await page.evaluate(() => window.stateManager.getCurrentState()), 'username');
+    }
+    stage = 'success';
+    const payload = 'A><img src=x onerror="window.__xss=1"> & $& <h>name</h>';
+    await submit(payload);
+    await page.waitForFunction(() => window.stateManager.getCurrentState() === 'station');
+    await prompt.waitFor();
+    assert.equal(receivedCommand, payload, 'Commands must arrive as raw text');
+    assert.equal(await page.evaluate(() => window.stateManager.getUsername()), payload);
+    assert.ok((await page.locator('#command-prompt').innerText()).includes('Username confirmed: ' + payload));
+    assert.equal(await page.locator('#command-prompt img').count(), 0);
+    assert.equal(await page.evaluate(() => window.__xss), undefined);
+    assert.equal(await page.locator('#command-prompt .key').filter({ hasText: 'Authored formatting' }).count(), 1);
+    assert.deepEqual(requests.errors, []);
+    console.log('Command HTTP/JSON/timeout recovery, raw input, escaped username, and authored HTML: passed');
+  } finally { await requests.page.close(); }
 
 } finally {
   if (browser) await browser.close();

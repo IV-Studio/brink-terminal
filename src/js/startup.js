@@ -7,7 +7,7 @@ import Username from './content/username.js';
 import Keywords from './content/keywords.js';
 import ConnectionError from './content/connectionError.js';
 import Messages from './content/messages.js';
-import { server } from './config.js';
+import { api } from './api.js';
 import { initializeContext } from './context.js';
 import { startTerminalEffects } from './effects.js';
 import { initializeCredits } from './content/Player/credits';
@@ -55,8 +55,7 @@ async function initializeApplication() {
   startTerminalEffects();
   let initialState = Username.Actions.state;
   try {
-    const response = await fetch(server + '/api/hello', { signal: AbortSignal.timeout(10000) });
-    if (!response.ok) throw new Error('Server connection failed: ' + response.status);
+    await api.health();
   } catch (error) {
     console.error('Server connection failed', error);
     initialState = ConnectionError.Actions.state;

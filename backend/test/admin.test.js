@@ -61,3 +61,25 @@ test('admin access is protected and normal gameplay has no username bypass', asy
     await new Promise(resolve => server.close(resolve));
   }
 });
+
+test('username confirmation escapes player text while returning the raw username', async () => {
+  const app = createApp({ logCommand() {}, logCombat() {} });
+  const server = app.listen(0, '127.0.0.1');
+  await new Promise(resolve => server.once('listening', resolve));
+  try {
+    const username = '<img src=x onerror="bad()"> & <h>name</h>';
+    const response = await fetch(`http://127.0.0.1:${server.address().port}/api/respond`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ command: username, context: 'username', keywords: [] }),
+    });
+    assert.equal(response.status, 200);
+    const data = await response.json();
+    assert.equal(data.username, username);
+    assert.ok(data.terminalMessages[0].includes('&lt;img'));
+    assert.ok(!data.terminalMessages[0].includes('<img'));
+    assert.ok(data.terminalMessages[0].startsWith('...<br>'));
+  } finally {
+    server.closeAllConnections();
+    await new Promise(resolve => server.close(resolve));
+  }
+});

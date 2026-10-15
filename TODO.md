@@ -48,11 +48,15 @@ failure, and animation failure. The enemy subclass factory workaround is removed
 
 ## 4. API requests and rendering
 
-- [ ] Centralize the backend URL and API calls in one client module.
-- [ ] Check HTTP status, validate response shapes, and add request timeouts.
-- [ ] Show useful connection failures in the terminal, with reliable loading-state cleanup.
-- [ ] Share command/request/response types where practical.
-- [ ] Escape player-supplied text before inserting it into HTML; preserve intentional markup in authored content.
+- [x] Centralize the backend URL and API calls in one client module.
+- [x] Check HTTP status, validate response shapes, and add request timeouts.
+- [x] Show useful connection failures in the terminal, with reliable loading-state cleanup.
+- [x] Share command/request/response types where practical.
+- [x] Escape player-supplied text before inserting it into HTML; preserve intentional markup in authored content.
+
+Verified with unit and browser checks for failed HTTP requests, malformed JSON,
+timeouts, resumed input, literal special-character commands, escaped usernames,
+and preserved authored markup. Game commands are never retried automatically.
 
 ## 5. Verification and types
 

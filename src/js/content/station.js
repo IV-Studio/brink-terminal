@@ -1,3 +1,4 @@
+import { escapeHtml } from '../../../backend/shared/html.cjs';
 import Actions from "../actions.js";
 import Command from "../command.js";
 import Messages from './messages.js';
@@ -43,7 +44,7 @@ const Station = {
 
             let returnString = '<hr>Loading ' + Station.getStationName() + ' Terminal OS ' + versionNumber + '<br>Your current Clearance Level is ' + clearanceLevel + '.';
             if (urlPath != '') {
-                returnString += '<hr>Your key card codeword is: ' + urlPath +'<br>Please manually enter the codeword to confirm.';
+                returnString += '<hr>Your key card codeword is: ' + escapeHtml(urlPath) +'<br>Please manually enter the codeword to confirm.';
             }
             return returnString;
         },
