@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Brink Terminal</title>
+  <script type="module" src="js/main.js?v=1.60"></script>
+  <link rel="stylesheet" type="text/css" href="styles.css?v=1.60">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  <script src="https://unpkg.com/@rive-app/canvas@2.15.1"></script>
+  
+</head>
+
+<body>
+  <div class="texture-overlay"></div>
+  <div class="lines-overlay"></div>
+  <div class="dots-overlay"></div>
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="header-box">
+        <div class="header-content-left">
+          <img src="https://ucarecdn.com/9db9e670-25c4-4e7f-a699-2f5f8c02337f/BrinkIcon.svg" alt="Brink Logo">
+          <div>BRINK TERMINAL</div>
+        </div>
+        <div id="timer" class="header-content-right">
+          <div>Right Text</div>
+        </div>
+      </div>
+      <div class="blue-green-container">
+        <div class="mr-window featured-box">
+          <div id="displayHeader" class="header">Welcome</div>
+          <div id="display" class="content">
+            <div id ="mapcontainer" class = "map-container">
+              <div id="map" class = "map-rive-container">
+                <canvas id = "riveMap"></canvas>
+              </div>
+            </div>
+            <div id="characterContainer" class="character-container">
+              <img id="characterImage" alt="Character Image">
+            </div>
+            <div id="databaseImageContainer" class="database-img-container">
+              <img id="databaseImage" alt="Database Image">
+            </div>
+            <div id="audioPlayer"></div>
+            <div id="displayText"></div>
+            <div id="rive" class="brink-animation-box">
+              <canvas id="riveDisplay"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="mr-window action-box">
+          <div id="actionsHeader" class="header">Username</div>
+          <div id="actions" class="content"></div>
+        </div>
+      </div>
+      <div class="command-keyboard-container">
+        <div class="mr-window command-box">
+          <div class="header">Command Prompt</div>
+          <div id="command-prompt" class="content">
+          </div>
+        </div>
+        <div class="keyboard-box">
+          <canvas id="keyboard"></canvas>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="grain-container">
+    <div class="grain" id="grain"></div>
+  </div>
+</body>
+</html>

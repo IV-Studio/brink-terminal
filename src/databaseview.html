@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brink Terminal Logs</title>
+  <style>
+    body,
+    html {
+      background-image: url('https://ucarecdn.com/78ae8f64-1414-4611-ad5c-76d007d7f0b4/desktop_bg_multiply_texture.jpg'),
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+      background-blend-mode: multiply;
+      background-size: cover;
+      background-position: center;
+      /* Dark background color */
+      color: #b1c7da;
+      /* White text color */
+      font-family: 'SystemError', Courier, monospace;
+      /* Monospaced font */
+      margin: 50px;
+      /* Remove default body margin */
+      padding: 0;
+      /* Remove default body padding */
+      height: 100%;
+      font-size: 14px;
+      line-height: 1.25;
+
+
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      padding: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #3d3f49;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #000;
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>BRINK TERMINAL LOGS</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>COMMAND</th>
+        <th>CONTEXT</th>
+        <th>USERNAME</th>
+        <th>CLEARANCE LEVEL</th>
+        <th>TIMESTAMP</th>
+        <th>STATION</th>
+        <th>ROOM</th>
+      </tr>
+    </thead>
+    <tbody id="logs-table-body">
+      <!-- Rows will be dynamically added here -->
+    </tbody>
+  </table>
+
+  <script>
+    async function fetchAndRenderData() {
+      try {
+        console.log('rendering data');
+        const response = await fetch('https://pacific-wildwood-12937-dbfccb51eaa2.herokuapp.com/api/command-logs');
+        const data = await response.json();
+        const logsTableBody = document.getElementById('logs-table-body');
+
+        // Clear existing rows
+        logsTableBody.innerHTML = '';
+
+        data.rows.forEach(log => {
+          const row = document.createElement('tr');
+          Object.values(log).forEach(value => {
+            const cell = document.createElement('td');
+            cell.textContent = value === null ? '' : value;
+            row.appendChild(cell);
+          });
+          logsTableBody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchAndRenderData(); // Initial fetch and render
+      setInterval(fetchAndRenderData, 10000); // Refresh every 10 seconds
+    });
+  </script>
+</body>
+
+</html>

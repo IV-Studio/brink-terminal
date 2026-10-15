@@ -1,0 +1,622 @@
+:root {
+    --black: #000;
+    --grey: #b1c7da;
+    --dark-grey: #3d3f49;
+    --light-grey: #cae5fd;
+}
+
+body,
+html {
+    background-image: url('https://ucarecdn.com/78ae8f64-1414-4611-ad5c-76d007d7f0b4/desktop_bg_multiply_texture.jpg'),
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: center;
+    /* Dark background color */
+    color: #000;
+    /* White text color */
+    font-family: 'SystemError', Courier, monospace;
+    /* Monospaced font */
+    margin: 0;
+    /* Remove default body margin */
+    padding: 0;
+    /* Remove default body padding */
+    height: 100%;
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.25;
+    overscroll-behavior: none;
+}
+
+.texture-overlay {
+    background-image: url('https://ucarecdn.com/0820d53b-7440-4284-bdec-8eb8d052ddfd/desktop_fg_multiply_texture.jpg');
+    background-size: cover;
+    background-position: center;
+    mix-blend-mode: multiply;
+    opacity: 100%; 
+    z-index: 9999; /* High z-index to sit on top */
+    pointer-events: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.dots-overlay {
+    position: fixed; /* Keeps the background fixed in place */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://ucarecdn.com/2e030f41-4e3c-4c34-b37c-15f6b420ab72/dots_pattern.jpg'); /* Replace with your image URL */
+    background-repeat: repeat; /* Tiling the image */
+    mix-blend-mode: add; /* Applying multiply blend mode */
+    background-size: 20px; /* Adjust as needed to control the size of the tiles */
+    z-index: 9997; /* High z-index to sit on top */
+    pointer-events: none;
+    opacity: 19%; /* Allows clicks to pass through */
+}
+
+.lines-overlay {
+    position: fixed; /* Keeps the background fixed in place */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://ucarecdn.com/9c2e00e3-adc8-424d-9672-65d61cd03f52/lines_pattern.png'); /* Replace with your image URL */
+    background-repeat: repeat; /* Tiling the image */
+    mix-blend-mode: multiply; /* Applying multiply blend mode */
+    background-size: 20px; /* Adjust as needed to control the size of the tiles */
+    z-index: 9998; /* High z-index to sit on top */
+    pointer-events: none;
+    opacity: 20%; /* Allows clicks to pass through */
+}
+
+hr.dark {
+    border: none; /* Remove the default border */
+    height: 1px; /* Set the height of the line */
+    background-color: var(--dark-grey);
+    margin: 4px 0; /* Set the background color */
+}
+/* used for unread messages */
+h4 {
+    color: var(--dark-grey);
+}
+
+h5 {
+    font-size: 8px;
+    color: var(--dark-grey);
+}
+
+h6 {
+    color: black;
+    background-color: var(--grey);
+}
+
+h1 {
+    text-transform: uppercase;
+    /* Makes the text all caps */
+    text-align: center;
+    /* Centers the text */
+    background-color: var(--grey);
+    /* Sets the background color */
+    color: #000;
+    /* Sets the text color */
+    padding: 5px;
+    /* Adds padding to the text */
+    display: inline-block;
+    /* Makes the background fill the entire line */
+    width: 100%;
+    /* Makes the background fill the entire line */
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-top: 0px;
+    /* Specifies the top margin */
+    margin-bottom: 0px;
+    /* Includes padding and border in the element's total width and height */
+}
+
+h2 {
+    text-transform: uppercase;
+    /* Makes the text all caps */
+    text-align: left;
+    /* Centers the text */
+    background-color: var(--dark-grey);
+    /* Sets the background color */
+    color: #000;
+    /* Sets the text color */
+    padding: 4px;
+    /* Adds padding to the text */
+    display: inline-block;
+    /* Makes the background fill the entire line */
+    width: 100%;
+    /* Makes the background fill the entire line */
+    box-sizing: border-box;
+    font-size: 10px;
+    margin-top: 10px;
+    /* Specifies the top margin */
+    margin-bottom: 5px;
+    /* Includes padding and border in the element's total width and height */
+}
+
+.key {
+    color: black;
+    background-color: var(--light-grey);
+}
+
+.read {
+    color: var(--dark-grey);
+}
+
+.float-right {
+    float: right;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+.box {
+    flex: 1;
+    padding: 20px;
+    
+    height: 600px;
+    /* Add outline border */
+    overflow: auto;
+    /* Add scrollbar */
+}
+
+.page-wrapper {
+    max-width: 1000px;
+    /* Set your desired maximum width */
+    margin: 0 auto;
+    /* Center the content horizontally */
+    padding: 0px;
+    /* Add some padding for breathing room */
+    height: 100dvh;
+    /* Set the height to 100% of the viewport height */
+    display: flex;
+    /* Use flexbox for layout */
+    flex-direction: column;
+    mix-blend-mode: screen;
+}
+
+/* HEADER */
+
+.header-box {
+    background-color: transparent;
+    height: 75px;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    /* Some padding for the content */
+    border-bottom: 1.25px solid var(--grey);
+    margin-left: 13px;
+    margin-right: 13px;
+    /* Outline at the bottom */
+    
+}
+
+.header-content-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-content-left img {
+    height: 150%; /* Fill the vertical space */
+    object-fit: contain; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between the image and text */
+}
+
+.header-content-right {/* Border for the text box */
+    text-align: right;
+    color: var(--dark-grey);
+    font-variant-numeric: tabular-nums;
+}
+
+/* CONTENT */
+
+.blue-green-container {
+    display: flex;
+    flex: 1;
+    min-height: 100px;
+    justify-content: space-between;
+}
+
+.command-keyboard-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 250px;
+    flex-direction: row;
+    margin-bottom: 0px;
+}
+
+
+.mr-window {
+    background-color: transparent;
+    /* Transparent background */
+    outline: 1.25px solid var(--grey);
+    /* Adjust height as needed */
+    margin: 25px;
+    outline-offset: 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    /* Use flexbox */
+    flex-direction: column;
+    gap: 5px;
+}
+
+.mr-window .header {
+    background-color: var(--grey);
+    /* Background color for the header */
+    color: #000;
+    padding: 5px;
+    /* Padding inside the header */
+    text-align: center;
+    /* Center-align text */
+    top: 0px;
+    /* Adjust this value to position the header where you want */
+    left: 0;
+    /* Align header to the left */
+    right: 0;
+    /* Align header to the right */
+}
+
+.mr-window .content {
+    padding-top: 0px;
+    overflow-y: auto;
+
+    height: 100%;
+    justify-content: space-between;
+    float: left;
+    flex: 1;
+}
+
+.mr-window.command-box {
+    
+    /*flex: 0 0 auto;*/
+    flex: 1;
+    margin-top: 10px;
+    
+}
+
+.mr-window.featured-box {
+    width: 60%;
+    margin-right: 10px;
+}
+
+.brink-animation-box {
+    position: absolute;
+    width: 250px; /* Set a specific width */
+    height: 250px; /* Set a specific height */
+    top: 50%; /* Start centering from the middle */
+    left: 50%; /* Start centering from the middle */
+    transform: translate(-50%, -50%); /* Shift the div to fully center it */
+    background-color: transparent; /* Optional background color */
+    color: white; /* Optional text color */
+    display: flex; /* Optional for centering content within the div */
+    align-items: center; /* Centers content vertically */
+    justify-content: center;
+    pointer-events: none;
+    margin-top: 15px; /* Centers content horizontally */
+}
+
+
+.mr-window.action-box {
+    width: 40%;
+}
+
+.mr-window .content::-webkit-scrollbar {
+    width: 16px;
+    /* Width of the scrollbar */
+    height: 12px;
+    margin-left: 10px;
+    -webkit-appearance: none;
+    /* Height of the scrollbar */
+}
+
+.mr-window .content::-webkit-scrollbar-thumb {
+    background-color: var(--dark-grey);
+    /* Color of the scrollbar thumb */
+    border: 4px solid #000;
+    /* Border of the scrollbar thumb */
+    border-radius: 0px;
+    /* Border radius of the scrollbar thumb */
+}
+
+/* CHARACTER */
+.character-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px; /* Fixed height */
+    border: 1px solid var(--dark-grey);
+    padding: 10px;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.character-container img {
+
+    height: 100%; /* Set the width of the image */
+    width: auto; /* Keep the aspect ratio */
+    filter: sepia(100%) hue-rotate(-180deg) saturate(50%);
+    /* Desaturate the image */
+    margin-right: 0px;
+     /* Space between image and text */
+}
+
+/* CHARACTER */
+.database-img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90%;
+    width: 98%; /* Fixed height */
+    border: 1px solid var(--dark-grey);
+    display: none;
+}
+
+.database-img-container img {
+    height: 100%; /* Set the width of the image */
+    width: auto; /* Keep the aspect ratio */
+    filter: sepia(100%) hue-rotate(-180deg) saturate(50%);
+    /* Desaturate the image */
+     /* Space between image and text */
+}
+
+
+.character-container .text-content {
+    flex: 1; /* Allow text to fill the remaining space */
+}
+
+/* KEYBOARD */
+
+.keyboard-box {
+    background-color: transparent;
+    display: block;
+    position: relative;
+    aspect-ratio: 540/293;
+    margin-right: 12px;
+    margin-top: -4px;
+    margin-left: -3px;
+    margin-bottom: 15px;
+    height: 98%;
+}
+.map-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    position: absolute;
+    pointer-events: none;
+}
+
+.map-rive-container {
+    height: 100%;
+    width: 100%;
+}
+
+
+#keyboard {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#riveMap {
+    position: relative;
+    top: 1%;
+    left: 0;
+    width: 100%;
+    height: 90%;
+}
+
+#riveDisplay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+::selection {
+    background-color: #62C7F1;
+    /* Change this to your desired highlight color */
+    color: #000;
+    /* Change this to your desired text color */
+}
+
+hr {
+    border: none;
+    /* Remove the default border */
+    height: 1.5px;
+    /* Set the height of the line */
+    background-color: var(--grey);
+    /* Set the color of the line */
+    margin: 10px 0px 10px 0px;
+    /* Add margin around the line */
+}
+
+.grain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.grain {
+    position: absolute;
+    width: 1.5px;
+    height: 1.5px;
+    background-color: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+    animation: grain-animation 0.1s infinite;
+}
+
+@keyframes grain-animation {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(calc(random() * 100vw), calc(random() * 100vh));
+    }
+}
+
+@font-face {
+    font-family: 'SystemError';
+    /* Your desired font family name */
+    src: url('https://ucarecdn.com/a5d30139-a924-45d4-9cc0-2bc9378e1d98/SystemError.otf') format('truetype');
+    /* Path to your font file */
+    /* Add more src lines if you have other font formats */
+}
+
+
+/* Tablet styles */
+@media only screen and (max-width: 768px) {
+
+    body,html {
+        font-size: 12px;
+        background-image: url('https://ucarecdn.com/24cc0965-2fa6-412a-af60-cfa92fb28744/mobile_bg_texture.jpg'),
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+        /* Adjust font size for tablets */
+    }
+
+    .texture-overlay {
+        background-image: url('https://ucarecdn.com/042cdda5-28c3-4db7-b658-74b073256690/mobile_fg_multiply_texture.jpg');
+    }
+
+    h1 {
+        font-size: 12px;
+        /* Adjust font size for tablets */
+    }
+
+    .brink-animation-box {
+        width: 150px; /* Set a specific width */
+        height: 150px; 
+        margin-top: 10px;
+    }
+
+    .header-box {
+        height: 60px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 2px;
+    }
+
+    h2 {
+        font-size: 8px;
+        /* Adjust font size for tablets */
+    }
+
+    h5 {
+        font-size: 5px;
+    }
+
+    .mr-window {
+        margin: 12px;
+        outline-offset: 6px;
+    }
+
+    .character-container {
+        height: 150px; 
+        margin-bottom: 8px;
+    }
+    
+    .command-keyboard-container {
+        flex-direction: column;
+        height: 350px;
+        margin-bottom: 0px;
+    }
+
+    .keyboard-box {
+        height: auto;
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 480px) {
+    body,html {
+        font-size: 10px;
+        background-image: url('https://ucarecdn.com/24cc0965-2fa6-412a-af60-cfa92fb28744/mobile_bg_texture.jpg'),
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+        /* Adjust font size for mobile devices */
+    }
+
+    .texture-overlay {
+        background-image: url('https://ucarecdn.com/042cdda5-28c3-4db7-b658-74b073256690/mobile_fg_multiply_texture.jpg');
+    }
+
+    h1 {
+        font-size: 10px;
+        /* Adjust font size for mobile devices */
+    }
+
+    h2 {
+        font-size: 8px;
+        /* Adjust font size for tablets */
+    }
+    h5 {
+        font-size: 5px;
+    }
+
+    .command-keyboard-container {
+        flex-direction: column;
+        height: 350px;
+        margin-bottom: 0px;
+    }
+    
+    .header-box {
+        height: 40px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 2px;
+    }
+    .brink-animation-box {
+        width: 150px; /* Set a specific width */
+        height: 150px; 
+        margin-top: 10px;
+    }
+
+    .keyboard-box {
+        height: auto;
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .mr-window {
+        margin: 12px;
+        outline-offset: 6px;
+    }
+    
+    .character-container {
+        height: 100px; 
+        margin-bottom: 5px;
+    }
+
+    .mr-window.command-box {
+        height: 120px;
+    }
+}

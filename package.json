@@ -1,0 +1,28 @@
+{
+  "name": "brink-terminal",
+  "version": "1.60.0",
+  "description": "Brink Terminal",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html src/databaseview.html --no-optimize --no-source-maps && cp public/_redirects dist/_redirects",
+    "deploy": "wrangler pages deploy dist --project-name brink-terminal"
+  },
+  "author": "IV Studio",
+  "license": "MIT",
+  "dependencies": {
+    "@rive-app/canvas": "2.19.0",
+    "@rive-app/canvas-advanced": "2.19.0",
+    "howler": "^2.2.4"
+  },
+  "devDependencies": {
+    "cssnano": "^7.0.3",
+    "postcss": "^8.4.38",
+    "typescript": "^5.4.5",
+    "parcel": "^2.16.0",
+    "wrangler": "^4.0.0"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}
