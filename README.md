@@ -8,7 +8,7 @@ https://pacific-wildwood-12937-dbfccb51eaa2.herokuapp.com
 ## Develop
 
 Use Node 22 (`nvm use`), then `npm ci` and `npm run dev`.
-Build both the terminal and database viewer with `npm run build`.
+Build the terminal with `npm run build`. The log viewer lives behind backend authentication.
 Dependencies are locked; `.npmrc` uses the official registry because the local mirror lacks Rive.
 Rive runtimes remain pinned to 2.19.0 to match the map's WASM.
 
@@ -44,10 +44,10 @@ The Heroku `/api/hello` endpoint returns HTTP 200. Full gameplay is not yet veri
 Recovered from `Brink Terminal Parcel v2`, including the local 1.60 version update.
 The original folder and its history remain untouched. Its history tracked dependency
 and generated build folders, so this repository starts with source and a clean lockfile.
-The original backend was recovered separately from Heroku; it is not changed by this workflow.
+The recovered backend is now in `backend/`; see [backend deployment and administration](backend/README.md).
 
-The database viewer is an existing public page. Access control and backend logging
-should be reviewed before expanding functionality.
+The former public database-viewer address redirects to the authenticated backend viewer.
+Backend deployments are separate from the automatic frontend release.
 
 Startup repairs defer the enemy subclass until imports finish and evaluate the ship
 parts label when read. This avoids circular-import initialization failures in Parcel 2.

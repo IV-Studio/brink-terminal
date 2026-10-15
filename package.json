@@ -4,8 +4,9 @@
   "description": "Brink Terminal",
   "scripts": {
     "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html src/databaseview.html --no-optimize --no-scope-hoist --no-source-maps && cp public/_redirects dist/_redirects",
-    "deploy": "wrangler pages deploy dist --project-name brink-terminal"
+    "build": "node -e \"require('node:fs').rmSync('dist', {recursive:true, force:true})\" && parcel build src/index.html --no-optimize --no-scope-hoist --no-source-maps && cp public/_redirects dist/_redirects",
+    "deploy": "wrangler pages deploy dist --project-name brink-terminal",
+    "deploy:backend": "node scripts/deploy-backend.mjs"
   },
   "author": "IV Studio",
   "license": "MIT",

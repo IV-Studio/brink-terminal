@@ -71,7 +71,8 @@
     async function fetchAndRenderData() {
       try {
         console.log('rendering data');
-        const response = await fetch('https://pacific-wildwood-12937-dbfccb51eaa2.herokuapp.com/api/command-logs');
+        const response = await fetch('/api/command-logs');
+        if (!response.ok) throw new Error('Log access failed: ' + response.status);
         const data = await response.json();
         const logsTableBody = document.getElementById('logs-table-body');
 
