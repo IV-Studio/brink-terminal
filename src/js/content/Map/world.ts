@@ -128,7 +128,7 @@ export class World {
             displayName: function () {
                 return playerShip.shipPartContainer.showContainerContents();
             },
-            section: shipPartsTitle(),
+            get section() { return shipPartsTitle(); },
             available: function () {
                 return (playerShip.shipPartContainer.getTotalQuantity() > 0);
             },

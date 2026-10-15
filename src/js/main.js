@@ -9,11 +9,14 @@ import Username from "./content/username.js";
 import Keywords from "./content/keywords.js";
 import ConnectionError from "./content/connectionError.js";
 import Messages from "./content/messages.js";
+import { initializeEnemies } from "./content/Combat/enemies.ts";
 
 // http://localhost:3001
 // https://pacific-wildwood-12937-dbfccb51eaa2.herokuapp.com
 export const server = "https://pacific-wildwood-12937-dbfccb51eaa2.herokuapp.com";
 export let versionNumber = '1.60';
+
+initializeEnemies();
 
 const SM = getSMInstance();
 

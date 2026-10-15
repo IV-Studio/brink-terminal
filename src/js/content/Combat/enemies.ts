@@ -14,7 +14,8 @@ type TurnAction = {
 };
 
 
-export class Enemy extends Ship{
+function createEnemyClass() {
+return class Enemy extends Ship{
     id: string;
     name: string;
     startingHealth: number;
@@ -80,6 +81,15 @@ export class Enemy extends Ship{
             this.enemyOnCombatStart(this);
         }
     }
+}
+
+}
+
+// Build the subclass after the circular game modules have finished loading.
+export type Enemy = InstanceType<ReturnType<typeof createEnemyClass>>;
+export let Enemy: ReturnType<typeof createEnemyClass>;
+export function initializeEnemies() {
+    Enemy = createEnemyClass();
 }
 
 // ENEMY ACTIONS

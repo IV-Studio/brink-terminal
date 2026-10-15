@@ -33,6 +33,12 @@ Client-side chapter URLs use `public/_redirects` to serve the terminal shell.
 The API accepts cross-origin requests. External Rive, images, audio, and fonts
 continue using the original CDN addresses.
 
+## Verification
+
+The production build and an isolated Chromium startup check pass: the terminal boots,
+shows the username prompt, and loads its external assets without browser errors.
+The Heroku `/api/hello` endpoint returns HTTP 200. Full gameplay is not yet verified.
+
 ## Recovery notes
 
 Recovered from `Brink Terminal Parcel v2`, including the local 1.60 version update.
@@ -42,3 +48,6 @@ The original backend was recovered separately from Heroku; it is not changed by 
 
 The database viewer is an existing public page. Access control and backend logging
 should be reviewed before expanding functionality.
+
+Startup repairs defer the enemy subclass until imports finish and evaluate the ship
+parts label when read. This avoids circular-import initialization failures in Parcel 2.

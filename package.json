@@ -4,7 +4,7 @@
   "description": "Brink Terminal",
   "scripts": {
     "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html src/databaseview.html --no-optimize --no-source-maps && cp public/_redirects dist/_redirects",
+    "build": "parcel build src/index.html src/databaseview.html --no-optimize --no-scope-hoist --no-source-maps && cp public/_redirects dist/_redirects",
     "deploy": "wrangler pages deploy dist --project-name brink-terminal"
   },
   "author": "IV Studio",
