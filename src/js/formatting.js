@@ -11,4 +11,3 @@ export function convertDateTime(now) {
   const formattedDateTime = `${year}:${month}:${day} - ${hours}:${minutes}.${seconds}.${milliseconds}`;
   return formattedDateTime;
 }
-

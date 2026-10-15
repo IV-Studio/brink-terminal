@@ -16,7 +16,7 @@ export class Ship {
     currentReactor: number;
     currentShield: number;
 
-    
+
     temporaryEvadeChance: number;
     evasionLoss: number;
 
@@ -41,21 +41,21 @@ export class Ship {
     onTurnEnd() : void {
         this.decayEvasion();
     }
-    
+
 
     onCombatBegin() : void {
         this.updateHealthUI();
         this.updateShieldUI();
     }
     onCombatEnd() : void {}
-    
+
     onTakeDamage() : void {}
     onShieldLoss() : void {}
 
     // This is when this ship is attacked
     attack(attackAction: AttackAction) {
         console.log('being attacked. total evade chance = ' + this.getTotalEvadeChance());
-        if (Math.random() < this.getTotalEvadeChance() ){ 
+        if (Math.random() < this.getTotalEvadeChance() ){
             presentation.command.addCommandResponse('Evaded attack!');
         } else {
             if (attackAction.doesHit()) {
@@ -80,7 +80,7 @@ export class Ship {
         this.currentHealth += amount;
         if (this.currentHealth > this.getMaxHealth()) {
             this.currentHealth = this.getMaxHealth();
-            
+
         } else if (this.currentHealth <= 0) {
             this.currentHealth = 0;
             this.death();
@@ -118,11 +118,11 @@ export class Ship {
         this.currentShield += amount;
         if (this.currentShield > this.getMaxShield()) {
             this.currentShield = this.getMaxShield();
-            
+
         } else if (this.currentShield < 0) {
             leftoverDamage = this.currentShield * -1;
             this.currentShield = 0;
-             
+
         }
 
         this.updateShieldUI();
@@ -154,7 +154,7 @@ export class Ship {
         }
     }
 
-    
+
 
     showShipData() : string {
 
@@ -173,10 +173,10 @@ export class Ship {
         const evasion = 'Evade Chance:<span class="float-right">' + (Math.round(this.getBaseEvadeChance())) + '</span>';
 
         const br = '<br>';
-        
+
         let returnString = health;
 
-        
+
         if (this.getMaxShield() > 0) {
             returnString = shield + br + returnString;
         }
@@ -184,12 +184,12 @@ export class Ship {
         if (presentation.getClearance() >= 3 && this.isPlayer) {
             returnString = attack + br + returnString;
         }
-    
+
 
         if (this.isPlayer) {
             returnString = returnString + br + reactor;
         }
-        
+
         if (this.getTotalEvadeChance() > 0) {
             returnString = returnString + br + evasion;
         }
@@ -219,7 +219,7 @@ export function generateBar(maxValue: number, currentValue: number): string {
     if (currentValue > maxValue) {
         currentValue = maxValue;
     }
-    
+
     // Ensure currentValue is not below zero
     if (currentValue < 0) {
         currentValue = 0;
@@ -227,16 +227,15 @@ export function generateBar(maxValue: number, currentValue: number): string {
 
     // Calculate the number of filled slots in the bar based on the fixed length
     const filledLength = Math.round((currentValue / maxValue) * barLength);
-    
+
     // Create the filled part of the bar
     const filledBar = '█'.repeat(filledLength);
-    
+
     // Create the empty part of the bar
     const emptyBar = '░'.repeat(barLength - filledLength);
-    
+
     // Combine the filled and empty parts
     const healthBar = `◇${filledBar}${emptyBar}◇`;
 
     return healthBar;
 }
-
