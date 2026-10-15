@@ -64,3 +64,8 @@ The obsolete root JavaScript ship, inventory, parts, world, and map-data modules
 were removed after tracing their consumers and comparing active gameplay behavior.
 Their earlier versions remain in Git history. Keep new work in the active modules.
 Explicit startup sequencing and circular-import cleanup remain separate TODO items.
+
+CI also boots the actual production bundle in headless Chromium before deployment.
+Locally, run `npx playwright install chromium`, `npm run build`, and `npm run test:browser`.
+Map enemy identifiers live in `Combat/enemyIds.ts` to avoid loading combat runtime
+through static map definitions.
