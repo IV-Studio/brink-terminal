@@ -6,7 +6,8 @@
     "dev": "parcel src/index.html",
     "build": "node -e \"require('node:fs').rmSync('dist', {recursive:true, force:true})\" && parcel build src/index.html --no-optimize --no-scope-hoist --no-source-maps && cp public/_redirects dist/_redirects",
     "deploy": "wrangler pages deploy dist --project-name brink-terminal",
-    "deploy:backend": "node scripts/deploy-backend.mjs"
+    "deploy:backend": "node scripts/deploy-backend.mjs",
+    "test": "node --test test/*.test.mjs"
   },
   "author": "IV Studio",
   "license": "MIT",

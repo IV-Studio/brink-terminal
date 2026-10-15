@@ -21,11 +21,11 @@ username requests are logged using the rotated database credential. See `backend
 
 ## 2. Confirmed bugs and regression coverage
 
-- [ ] Fix `src/js/statemanager.js`: nested writes must check `currentState`, not the root `SM.state`. Reproduced: setting `ship.inventory.capacity`, then `ship.inventory.items`, deletes `capacity`.
-- [ ] Fix backend combat logging: destructuring strings such as `const { context } = 'kill'` produces `undefined`; assign the intended values directly.
-- [ ] Handle rejected logging promises without unhandled rejections.
-- [ ] Fix the logging query error path that references an unavailable Express `res` object.
-- [ ] Add regression tests for these failures before refactoring surrounding code.
+- [x] Fix `src/js/statemanager.js`: nested writes must check `currentState`, not the root `SM.state`. Reproduced: setting `ship.inventory.capacity`, then `ship.inventory.items`, deletes `capacity`.
+- [x] Fix backend combat logging: destructuring strings such as `const { context } = 'kill'` produces `undefined`; assign the intended values directly.
+- [x] Handle rejected logging promises without unhandled rejections.
+- [x] Fix the logging query error path that references an unavailable Express `res` object.
+- [x] Add regression tests for these failures before refactoring surrounding code.
 
 ## 3. Duplicate systems and startup dependencies
 

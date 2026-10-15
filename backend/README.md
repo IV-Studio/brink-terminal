@@ -2,6 +2,7 @@
 
 Source recovered from Heroku revision `daeb2e29b920fc94a869c796f67736c640c99f95`.
 The frontend workflow tests this backend; backend releases are deliberately separate.
+Production uses Heroku-26 with Node 22 (verified October 15, 2026).
 
 ## Configuration
 

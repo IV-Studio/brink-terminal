@@ -43,7 +43,7 @@ const SM = {
         for (let i = 0; i < keys.length - 1; i++) {
             const key = keys[i];
             // If the key doesn't exist, create an empty object
-            if (!(key in SM.state)) {
+            if (!(key in currentState)) {
                 currentState[key] = {};
             }
             // Update the reference to the next level of the dictionary
