@@ -1,7 +1,5 @@
 import Command from "./command.js";
-import ShipParts from "./shipParts.js";
 import Actions from "./actions.js";
-import Ships from "./ships.js";
 import Station from "./content/station.js";
 import Clearance from "./content/clearance.js";
 import getSMInstance from './statemanager.js';
@@ -31,8 +29,6 @@ function init() {
   Keywords.init();
   Clearance.setClearanceLevel(-1);
   Command.init();
-  ShipParts.init();
-  Ships.init();
   Station.init();
   Username.init();
   Messages.init();

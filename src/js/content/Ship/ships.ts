@@ -277,13 +277,6 @@ class PlayerShip extends Ship {
        
     }
     
-    /*
-    saveShipState(): void {
-        SM.set('ship.maxHp', this.maxHealth);
-        SM.set('ship.hp', this.currentHealth)
-        SM.set('ship.inventory', Items.createItemContainer('Inventory', shipData['storage'], false));
-    }
-    */
 
     getStorageCapacity(): number {
         let shipPartsModifier = 0;

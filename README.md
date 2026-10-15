@@ -51,3 +51,16 @@ Backend deployments are separate from the automatic frontend release.
 
 Startup repairs defer the enemy subclass until imports finish and evaluate the ship
 parts label when read. This avoids circular-import initialization failures in Parcel 2.
+
+## Active game systems
+
+- Ships and upgrades: `src/js/content/Ship/ships.ts`.
+- Ship parts: `src/js/content/Ship Parts/shipParts.ts`.
+- Inventory and items: `src/js/content/Items/`.
+- Exploration and map content: `src/js/content/Map/`.
+- Combat and enemies: `src/js/content/Combat/`.
+
+The obsolete root JavaScript ship, inventory, parts, world, and map-data modules
+were removed after tracing their consumers and comparing active gameplay behavior.
+Their earlier versions remain in Git history. Keep new work in the active modules.
+Explicit startup sequencing and circular-import cleanup remain separate TODO items.

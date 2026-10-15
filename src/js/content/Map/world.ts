@@ -1,4 +1,3 @@
-import MapData from '../../mapData';
 import { Map } from './map';
 import { updateRiveMapTiles, turnOffMap } from '../../riveMap';
 import { playerShip } from '../Ship/ships';
