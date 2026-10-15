@@ -6,7 +6,7 @@ and gameplay has been checked by Zac. Preserve that behavior while cleaning up.
 ## 1. Backend credentials, access, and source control
 
 - [x] Replace hardcoded database connection strings with Heroku environment configuration.
-- [ ] Rotate the embedded database credential and verify logging still works.
+- [x] Rotate the embedded database credential and verify logging still works.
 - [x] Protect `/api/command-logs` and its database viewer with appropriate access control.
 - [x] Replace the username-based `ivadmin` override with an explicit, protected development/admin mechanism.
 - [x] Bring the sanitized backend into this repository; exclude dependencies, secrets, and generated files.
@@ -15,8 +15,9 @@ and gameplay has been checked by Zac. Preserve that behavior while cleaning up.
 The backend review used source recovered from the `pacific-wildwood-12937`
 Heroku Git repository. Sanitized source is now in `backend/`.
 
-Operator follow-up: configure `ADMIN_USERNAME` and `ADMIN_PASSWORD` in Heroku,
-then rotate the old database credential after the secure release. See `backend/README.md`.
+Verified October 15, 2026: admin credentials are configured, anonymous admin/log
+requests return HTTP 401, authenticated requests return HTTP 200, and normal
+username requests are logged using the rotated database credential. See `backend/README.md`.
 
 ## 2. Confirmed bugs and regression coverage
 
