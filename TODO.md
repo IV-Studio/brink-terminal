@@ -60,10 +60,18 @@ and preserved authored markup. Game commands are never retried automatically.
 
 ## 5. Verification and types
 
-- [ ] Add repeatable browser smoke checks to CI for startup, username entry, and chapter links.
-- [ ] Cover inventory transfers, purchases/credits, and combat damage with focused tests.
-- [ ] Introduce a TypeScript configuration and type checking incrementally.
-- [ ] Keep deployment checks separate from gameplay behavior checks; compilation alone does not verify startup.
+- [x] Add repeatable browser smoke checks to CI for startup, username entry, and chapter links.
+- [x] Cover inventory transfers, purchases/credits, and combat damage with focused tests.
+- [x] Introduce a TypeScript configuration and type checking incrementally.
+- [x] Keep deployment checks separate from gameplay behavior checks; compilation alone does not verify startup.
+
+Verified with permanent tests for transfers/capacity, purchases/sales/credits,
+shield absorption, damage overflow, misses/evasion, and lethal damage. Quantity
+commands now reject zero, negative, fractional, and malformed quantities; the new
+tests reproduced stock corruption before this fix. CI runs unit tests, scoped strict
+type checking, and the production browser checks before deployment. Type coverage
+currently includes API contracts/client, HTML helpers, configuration, attacks, and
+enemy identifiers; expand to the remaining game systems incrementally.
 
 ## 6. Content organization
 

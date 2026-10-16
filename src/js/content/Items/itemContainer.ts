@@ -157,10 +157,10 @@ export class ItemContainer {
             Command.addCommandResponse('Error: Invalid ' + commandBase + ' command. To ' + commandBase + ' specific items enter [' + commandBase + ' 2 item].');
             return;
         }
-        const quantityCommand = parseInt(parts[1], 10);
+        const quantityCommand = Number(parts[1]);
 
         // check if part 2 is a number
-        if (!Number.isInteger(quantityCommand)) {
+        if (!Number.isSafeInteger(quantityCommand) || quantityCommand <= 0) {
             Command.addCommandResponse('Error: Invalid quantity. To ' + commandBase + ' specific items enter [' + commandBase + ' 2 item].');
             return;
         }
@@ -219,10 +219,10 @@ export class ItemContainer {
             Command.addCommandResponse('Error: Invalid ' + commandBase + ' command. To ' + commandBase + ' specific items enter [' + commandBase + ' 2 item].');
             return;
         }
-        const quantityCommand = parseInt(parts[1], 10);
+        const quantityCommand = Number(parts[1]);
 
         // check if part 2 is a number
-        if (!Number.isInteger(quantityCommand)) {
+        if (!Number.isSafeInteger(quantityCommand) || quantityCommand <= 0) {
             Command.addCommandResponse('Error: Invalid quantity. To ' + commandBase + ' specific items enter [' + commandBase + ' 2 item].');
             return;
         }
@@ -258,10 +258,10 @@ export class ItemContainer {
             Command.addCommandResponse('Error: Invalid ' + commandBase + ' command. To ' + commandBase + ' specific items enter [' + commandBase + ' 2 item].');
             return;
         }
-        const quantityCommand = parseInt(parts[1], 10);
+        const quantityCommand = Number(parts[1]);
 
         // check if part 2 is a number
-        if (!Number.isInteger(quantityCommand)) {
+        if (!Number.isSafeInteger(quantityCommand) || quantityCommand <= 0) {
             Command.addCommandResponse('Error: Invalid quantity. To ' + commandBase + ' specific items enter [' + commandBase + ' 2 item].');
             return;
         }
@@ -311,10 +311,10 @@ export class ItemContainer {
             Command.addCommandResponse('Error: Invalid ' + commandBase + ' command. To ' + commandBase + ' specific items enter [' + commandBase + ' 2 item].');
             return;
         }
-        const quantityCommand = parseInt(parts[1], 10);
+        const quantityCommand = Number(parts[1]);
 
         // check if part 2 is a number
-        if (!Number.isInteger(quantityCommand)) {
+        if (!Number.isSafeInteger(quantityCommand) || quantityCommand <= 0) {
             Command.addCommandResponse('Error: Invalid quantity. To ' + commandBase + ' specific items enter [' + commandBase + ' 2 item].');
             return;
         }

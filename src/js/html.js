@@ -1,5 +1,6 @@
 import { escapeHtml } from '../../backend/shared/html.cjs';
 
+/** @param {unknown} value @param {string} username */
 export function formatStoryHtml(value, username) {
   return String(value ?? '')
     .replace(/<h>/g, "<span class='key'>")
@@ -8,6 +9,7 @@ export function formatStoryHtml(value, username) {
 }
 
 // Never reveal a partial tag or character entity during a typewriter frame.
+/** @param {string} html @param {number} index */
 export function nextHtmlIndex(html, index) {
   if (html[index] === '<') {
     const end = html.indexOf('>', index);

@@ -8,7 +8,8 @@
     "deploy": "wrangler pages deploy dist --project-name brink-terminal",
     "deploy:backend": "node scripts/deploy-backend.mjs",
     "test": "node --test test/*.test.mjs",
-    "test:browser": "node test/browser-smoke.mjs"
+    "test:browser": "node test/browser-smoke.mjs",
+    "typecheck": "tsc --project tsconfig.json"
   },
   "author": "IV Studio",
   "license": "MIT",

@@ -37,7 +37,7 @@ continue using the original CDN addresses.
 
 The production build and an isolated Chromium startup check pass: the terminal boots,
 shows the username prompt, and loads its external assets without browser errors.
-The Heroku `/api/hello` endpoint returns HTTP 200. Full gameplay is not yet verified.
+The Heroku `/api/hello` endpoint returns HTTP 200. Zac has checked gameplay.
 
 ## Recovery notes
 
@@ -90,3 +90,16 @@ or player-state persistence is introduced.
 Player input is kept in a plain-text buffer, independent of terminal HTML.
 `backend/shared/html.cjs` escapes inserted player text on both sides, while authored
 story markup remains supported. The typewriters consume complete tags and entities.
+
+## Gameplay tests and type checking
+
+Run `npm test` for focused state, API, rendering, inventory, economy, and combat
+checks; run `npm test --prefix backend` for backend checks. Gameplay tests transpile
+real TypeScript modules and substitute only terminal/state boundaries, avoiding
+network and animation dependencies. Production browser checks remain separate and
+exercise the actual built entry point.
+
+Run `npm run typecheck` for strict, no-output checking of the API client/contracts,
+HTML helpers, configuration, attack actions, and enemy identifiers. `tsconfig.json`
+lists this initial scope explicitly; the rest of the game is not yet type checked.
+CI requires type checking, unit tests, a build, and browser checks before deploying.
