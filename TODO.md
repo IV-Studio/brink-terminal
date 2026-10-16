@@ -75,10 +75,16 @@ enemy identifiers; expand to the remaining game systems incrementally.
 
 ## 6. Content organization
 
-- [ ] Extract tile definitions from the roughly 1,700-line `src/js/content/Map/map.ts` into content modules.
+- [x] Extract tile definitions from the roughly 1,700-line `src/js/content/Map/map.ts` into content modules.
 - [ ] Separate enemy definitions, item definitions, and upgrade tables from game mechanics.
 - [ ] Review historical campaign dates before changing release/clearance behavior.
 - [ ] Decide whether the armory's debug stock additions are intentional before removing them.
+
+Tile extraction verified: `map.ts` now contains 540 lines of map mechanics, with
+all 39 tile definitions in `Map/tileDefinitions.ts`. A comparison of 1,230 action
+scenarios matched the original metadata, story text, gates, and side effects.
+The content module uses lazy runtime callbacks and pure item/enemy identifiers;
+strict type checking and permanent tests cover map references and story routes.
 
 ## 7. Housekeeping and assets
 

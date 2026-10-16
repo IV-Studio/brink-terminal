@@ -58,7 +58,8 @@ before checking the API and enabling input. Repeated startup calls share one pro
 - Ships and upgrades: `src/js/content/Ship/ships.ts`.
 - Ship parts: `src/js/content/Ship Parts/shipParts.ts`.
 - Inventory and items: `src/js/content/Items/`.
-- Exploration and map content: `src/js/content/Map/`.
+- Exploration and map mechanics: `src/js/content/Map/map.ts` and `world.ts`.
+- Tile definitions and story actions: `src/js/content/Map/tileDefinitions.ts`.
 - Combat and enemies: `src/js/content/Combat/`.
 
 The obsolete root JavaScript ship, inventory, parts, world, and map-data modules
@@ -103,3 +104,9 @@ Run `npm run typecheck` for strict, no-output checking of the API client/contrac
 HTML helpers, configuration, attack actions, and enemy identifiers. `tsconfig.json`
 lists this initial scope explicitly; the rest of the game is not yet type checked.
 CI requires type checking, unit tests, a build, and browser checks before deploying.
+
+Tile content is created with runtime callbacks supplied by `map.ts`; importing the
+content module does not load or initialize the world, ship, or terminal. Pure item
+identifiers live in `Items/itemKeys.ts`, re-exported by `itemList.ts` for existing
+callers. Strict type checking includes tile content and its service contract.
+Map tests verify content references, docking/scan gates, and chapter room routes.

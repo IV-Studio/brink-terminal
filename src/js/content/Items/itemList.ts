@@ -1,33 +1,12 @@
 import { playerShip } from "../Ship/ships";
+import { ItemKeys } from './itemKeys';
+export { ItemKeys } from './itemKeys';
 
 export enum StationKeys {
     REINER_STATION = 'reiner-station',
     KAOS_STATION = "kaos-station",
     LEPPIK_STATION = "leppik-station",
     QUEENS_PORT = "queens-port",
-}
-
-export enum ItemKeys {
-    WATER = "water",
-    SCRAP_METAL = "scrap-metal",
-    IRON = "iron",
-    COPPER = "copper",
-    SMALL_FUEL_CELL = "small-fuel-cell",
-    LARGE_FUEL_CELL = "large-fuel-cell",
-    REPAIR_NANO_DROIDS = "repair-nano-droids",
-    QUANTUM_FUEL_CELL = "QUANTUM_FUEL_CELL",
-    REPAIR_KIT = "REPAIR_KIT_MKI",
-    REPAIR_SENTRY = "REPAIR_SENTRY",
-    JAVELINE_MISSILE = "JAVELINE_MISSILE",
-    ZINC = "ZINC",
-    PHOSPHORUS = "PHOSPHORUS",
-    COLBALT = "COLBALT",
-    PALLADIUM = "PALLADIUM",
-    GOLD = "GOLD",
-    DIAMONDS = "DIAMONDS",
-    MICROBIAL_LIFE = "MICROBIAL_LIFE",
-    SALT_DEPOSITS = "SALT_DEPOSITS",
-    HYDROCARBONS = "HYDROCARBONS"
 }
 
 export const itemDataList: { [key: string]: ItemData; } = {

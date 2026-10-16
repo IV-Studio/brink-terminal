@@ -16,6 +16,8 @@
     "src/js/html.js",
     "src/js/content/Combat/combatActions.ts",
     "src/js/content/Combat/enemyIds.ts",
+    "src/js/content/Map/tileDefinitions.ts",
+    "src/js/content/Items/itemKeys.ts",
     "backend/shared/api.d.ts",
     "backend/shared/html.cjs"
   ]
